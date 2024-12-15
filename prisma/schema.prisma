@@ -1,0 +1,27 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model Note{
+  // it tells prisma that this field is an id
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  enabled Boolean @default(true)
+
+  title String
+  content String?
+  userId String
+
+  //Map the whole colleciton name, the collection is named note, byt the model name Note
+  @@map("notes") 
+}
+
+//npx pruisma generate=> it will create a prisma Client, that we can utlizei within the code
